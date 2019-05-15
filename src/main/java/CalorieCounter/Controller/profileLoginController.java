@@ -1,6 +1,8 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.Main;
+import CalorieCounter.Main.Main;
+import CalorieCounter.Modell.FoodDatabaseOperations;
+import CalorieCounter.Modell.UserDAOfactory;
 import CalorieCounter.Modell.ProfileNamesDatabaseOperations;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,10 +16,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * Class for controlling the profiles scene's actions.
+ */
 public class profileLoginController implements Initializable {
 
     @FXML
@@ -27,21 +30,40 @@ public class profileLoginController implements Initializable {
     @FXML
     private Label Warninglabel;
 
+    private ProfileNamesDatabaseOperations pLC;
+    private FoodDatabaseOperations FDO;
+
+    /**
+     * The user profil name from {@code ProfilNames} database.
+     */
     public static String currentProfil;
 
 
-
+    /**
+     * Close application button event.
+     * @param event actionEvent the event that occurred.
+     * @see javafx.event.ActionEvent
+     */
     public void exitEvent(ActionEvent event){
         Main.CurrentStage.close();
     }
-    public void next(ActionEvent event) throws IOException {
+
+    /**
+     * Next button event for step into mainfxml.
+     */
+    public void next(){
         if(!profileName.getText().isEmpty()) {
             if (!ProfileNamesDatabaseOperations.isInProfileNames(profileName.getText())) {
                 ProfileNamesDatabaseOperations.addProfileName(profileName.getText());
             }
             currentProfil = profileName.getText();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/main.fxml"));
-            Parent root = loader.load();
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Main.CurrentStage.setScene(new Scene(root));
         }
         else {
@@ -55,12 +77,17 @@ public class profileLoginController implements Initializable {
 
     }
 
-    public void choiceBoxevent(ActionEvent event){
+    /**
+     * Set profileName textfield with choiceBox value.
+     */
+    public void choiceBoxevent(){
         profileName.setText(choiceBox.getValue().toString());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pLC = UserDAOfactory.getInstance().createProfilNameDAO();
+        FDO = UserDAOfactory.getInstance().createFoodDAO();
         for (String i:ProfileNamesDatabaseOperations.allProfileNametoString()) {
             choiceBox.getItems().add(i);
         }

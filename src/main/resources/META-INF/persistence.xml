@@ -6,9 +6,9 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
     <persistence-unit name="jpa-persistence-unit-1" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://remotemysql.com:3306/NCENSZs547" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://remotemysql.com:3306/NCENSZs547?useSSL=false" />
             <property name="javax.persistence.jdbc.user" value="NCENSZs547" />
-            <property name="javax.persistence.jdbc.password" value="JQIPj8zVDH" />
+            <property name="javax.persistence.jdbc.password" value="notmypassword" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
         </properties>
     </persistence-unit>

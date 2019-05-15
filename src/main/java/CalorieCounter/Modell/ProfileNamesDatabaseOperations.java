@@ -7,37 +7,47 @@ import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * ProfileNames database queries.
+ */
 public class ProfileNamesDatabaseOperations {
 
-    private static EntityManagerFactory emf;
     private static EntityManager em;
 
+    ProfileNamesDatabaseOperations(EntityManager emke){
+        em = emke;
+    }
+
+    /**
+     * Add a profile name to ProfileNames database.
+     * @param add Profile name string.
+     */
     public static void addProfileName(String add){
         ProfileNames adder = new ProfileNames(add);
-        emf = Persistence.createEntityManagerFactory("jpa-persistence-unit-1");
-        em = emf.createEntityManager();
 
         em.getTransaction().begin();
         em.persist(adder);
         em.getTransaction().commit();
 
-        em.close();
-        emf.close();
+
     }
 
+    /**
+     * Query all profile name.
+     * @return List of all profile name.
+     */
     public static List<ProfileNames> allProfileName(){
-        emf = Persistence.createEntityManagerFactory("jpa-persistence-unit-1");
-        em = emf.createEntityManager();
 
         TypedQuery<ProfileNames> query = em.createQuery("SELECT pf FROM ProfileNames pf",ProfileNames.class);
         List<ProfileNames> result = query.getResultList();
 
-        em.close();
-        emf.close();
-
         return result;
     }
 
+    /**
+     * Query all profile name in string format.
+     * @return List of all profile name string.
+     */
     public static List<String> allProfileNametoString(){
         List<String> stringNames = new LinkedList<>();
         List<ProfileNames> result = allProfileName();
@@ -48,6 +58,11 @@ public class ProfileNamesDatabaseOperations {
         return stringNames;
     }
 
+    /**
+     * Boolean profile in all profile.
+     * @param profilname Name of profile in string format.
+     * @return profile name is in profiles.
+     */
     public static boolean isInProfileNames(String profilname){
 
         ProfileNames resultname = new ProfileNames(profilname);

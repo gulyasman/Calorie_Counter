@@ -1,6 +1,6 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.Main;
+import CalorieCounter.Main.Main;
 import CalorieCounter.Modell.CalorieCounting;
 import CalorieCounter.Modell.FoodDatabaseOperations;
 import CalorieCounter.Modell.Foods;
@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +20,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Class for controlling the main scene's actions.
+ */
 public class mainfxmlController implements Initializable {
 
     @FXML
@@ -58,23 +60,28 @@ public class mainfxmlController implements Initializable {
 
     private List<Foods> countingFoods = new LinkedList<>();
 
+    /**
+     * This method set the text - color
+     * based on maxkcal and own kcal difference.
+     */
     public void differenceObserver(){
         if(!weightTextfield.getText().isEmpty()){
         if(CalorieCounting.sum(countingFoods)<=Integer.parseInt(profileKcal.getText())){
             CalorieNumberLabel.setStyle("-fx-text-fill: green;-fx-background-color: grey");
             calorieDifferenceLabel.setStyle("-fx-text-fill: green;-fx-background-color: grey");
-           // CalorieNumberLabel.setStyle("-fx-background-color: grey");
         }
         else {
             CalorieNumberLabel.setStyle("-fx-text-fill: red;-fx-background-color: grey");
             calorieDifferenceLabel.setStyle("-fx-text-fill: red;-fx-background-color: grey");
-            //CalorieNumberLabel.setStyle("-fx-background-color: grey");
         }
         calorieDifferenceLabel.setText(Integer.toString(CalorieCounting.differenceCounter(CalorieCounting.sum(countingFoods), Integer.parseInt(profileKcal.getText()))));
         }
     }
 
-
+    /**
+     * This method upload the foodsChoiceBox
+     * with {@code Foods} database elements.
+     */
     public void choiceBoxDataCreate(){
         foodsChoiceBox.getItems().clear();
         for (Foods i: FoodDatabaseOperations.allFoods()) {
@@ -84,23 +91,38 @@ public class mainfxmlController implements Initializable {
         kcalTextfield.setText("");
     }
 
-    public void back(ActionEvent event) throws IOException {
+    /**
+     * onAction event of Back button
+     * and take it back to profiles scene.
+     * @param event actionEvent the event that occurred.
+     * @see javafx.event.ActionEvent
+     */
+    public void back(ActionEvent event){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/profileLogin.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Main.CurrentStage.setScene(new Scene(root));
     }
-   /* public void choiceBoxevent(ActionEvent event){
-        //System.out.println( foodsChoiceBox.getSelectionModel().getSelectedIndex());
-        /*System.out.println(FoodDatabaseOperations.allFoods().get(foodsChoiceBox.getSelectionModel().getSelectedIndex()));
-        System.out.println(foodnameTextfield.getText());
-    }*/
 
+    /**
+     * onAction event of addFoodbutton
+     * and add a {@code Foods} to database.
+     */
     public void addFoodbutton(){
         if(!foodnameTextfield.getText().isEmpty()&&!kcalTextfield.getText().isEmpty()) {
             FoodDatabaseOperations.addFoods(foodnameTextfield.getText(), Integer.parseInt(kcalTextfield.getText()));
             choiceBoxDataCreate();
         }
     }
+
+    /**
+     * onAction event of deleteFoodbutton
+     * and delete a food from {@code Foods}database.
+     */
     public void deleteFoodbutton(){
         if(!foodnameTextfield.getText().isEmpty()) {
             FoodDatabaseOperations.deleteFoods(foodnameTextfield.getText());
@@ -108,6 +130,10 @@ public class mainfxmlController implements Initializable {
         }
     }
 
+    /**
+     * onAction event of addFoodToMyfoodbutton
+     * and this add a {@Foods} from foodsChoiceBox to myfoodLists.
+     */
     public void addFoodToMyfoodbutton() {
         if (foodsChoiceBox.getValue() != null) {
             myfoodLists.getItems().add(foodsChoiceBox.getValue());
@@ -117,14 +143,23 @@ public class mainfxmlController implements Initializable {
         }
     }
 
+    /**
+     * onAction event of removefoodButton
+     * and remove a food from myfoodLists.
+     */
     public void removefoodButton() {
         if(!myfoodLists.getItems().isEmpty()&&myfoodLists.getSelectionModel().getSelectedIndex()!=-1) {
             countingFoods.remove(myfoodLists.getSelectionModel().getSelectedIndex());
             myfoodLists.getItems().remove(myfoodLists.getSelectionModel().getSelectedIndex());
-            CalorieNumberLabel.setText(Integer.toString(CalorieCounting.sum(countingFoods)) + " kcal");
+            CalorieNumberLabel.setText((CalorieCounting.sum(countingFoods)) + " kcal");
             differenceObserver();
         }
     }
+
+    /**
+     * Set the text in profileKcal label.
+     * @param sex sex of profile.
+     */
 
     public void profileKcalsetText(String sex){
         if(!weightTextfield.getText().isEmpty()) {
@@ -133,13 +168,22 @@ public class mainfxmlController implements Initializable {
         }
     }
 
+    /**
+     * onAction event of manButton.
+     */
     public void manRadiobuttonEvent(){
         profileKcalsetText(manButton.getText());
     }
+    /**
+     * onAction event of womanButton.
+     */
     public void womanRadiobuttonEvent(){
         profileKcalsetText(womanButton.getText());
     }
 
+    /**
+     * Watch the weightTextfield changes.
+     */
     public void profileKcalcounting(){
         weightTextfield.textProperty().addListener(new ChangeListener<String>() {
             @Override
