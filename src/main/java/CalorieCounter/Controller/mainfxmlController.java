@@ -1,6 +1,6 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.Main.Main;
+import CalorieCounter.main.Main;
 import CalorieCounter.Modell.CalorieCounting;
 import CalorieCounter.Modell.FoodDatabaseOperations;
 import CalorieCounter.Modell.Foods;
@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +26,10 @@ import java.util.ResourceBundle;
  * Class for controlling the main scene's actions.
  */
 public class mainfxmlController implements Initializable {
+    /**
+     * The logger for this class.
+     */
+    private static Logger logger = LoggerFactory.getLogger(mainfxmlController.class);
 
     @FXML
     private Label ProfilNameLabel;
@@ -98,6 +104,7 @@ public class mainfxmlController implements Initializable {
      * @see javafx.event.ActionEvent
      */
     public void back(ActionEvent event){
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/profileLogin.fxml"));
         Parent root = null;
         try {
@@ -105,6 +112,7 @@ public class mainfxmlController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info("Back button is pressed");
         Main.CurrentStage.setScene(new Scene(root));
     }
 
@@ -116,6 +124,7 @@ public class mainfxmlController implements Initializable {
         if(!foodnameTextfield.getText().isEmpty()&&!kcalTextfield.getText().isEmpty()) {
             FoodDatabaseOperations.addFoods(foodnameTextfield.getText(), Integer.parseInt(kcalTextfield.getText()));
             choiceBoxDataCreate();
+            logger.info("Food is added to database");
         }
     }
 
@@ -127,12 +136,13 @@ public class mainfxmlController implements Initializable {
         if(!foodnameTextfield.getText().isEmpty()) {
             FoodDatabaseOperations.deleteFoods(foodnameTextfield.getText());
             choiceBoxDataCreate();
+            logger.info("Food is removed from database");
         }
     }
 
     /**
      * onAction event of addFoodToMyfoodbutton
-     * and this add a {@Foods} from foodsChoiceBox to myfoodLists.
+     * and this add a {@code Foods} from foodsChoiceBox to myfoodLists.
      */
     public void addFoodToMyfoodbutton() {
         if (foodsChoiceBox.getValue() != null) {
@@ -140,6 +150,7 @@ public class mainfxmlController implements Initializable {
             countingFoods.add(FoodDatabaseOperations.allFoods().get(foodsChoiceBox.getSelectionModel().getSelectedIndex()));
             CalorieNumberLabel.setText(Integer.toString(CalorieCounting.sum(countingFoods))+" kcal");
             differenceObserver();
+            logger.info("Food is added to my foods list");
         }
     }
 
@@ -153,6 +164,7 @@ public class mainfxmlController implements Initializable {
             myfoodLists.getItems().remove(myfoodLists.getSelectionModel().getSelectedIndex());
             CalorieNumberLabel.setText((CalorieCounting.sum(countingFoods)) + " kcal");
             differenceObserver();
+            logger.info("Food is removed from my foods list");
         }
     }
 

@@ -1,4 +1,4 @@
-package CalorieCounter.Main;
+package CalorieCounter.main;
 
 import CalorieCounter.Modell.UserDAOfactory;
 import javafx.application.Application;

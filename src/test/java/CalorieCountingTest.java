@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CalorieCountingTest {
 
-    Foods food1;
-    Foods food2;
-    Foods food3;
-    Foods food4;
-    Foods food5;
+    private Foods food1;
+    private Foods food2;
+    private Foods food3;
+    private Foods food4;
+    private Foods food5;
 
-    List<Foods> ListfoodTest1;
-    List<Foods> ListfoodTest2;
-    List<Foods> ListfoodTest3;
-    List<Foods> ListfoodTest4;
-    List<Foods> ListfoodTest5;
+    private List<Foods> ListfoodTest1;
+    private List<Foods> ListfoodTest2;
+    private List<Foods> ListfoodTest3;
+    private List<Foods> ListfoodTest4;
+    private List<Foods> ListfoodTest5;
 
     @BeforeEach
     void setUp() {

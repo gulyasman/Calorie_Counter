@@ -1,6 +1,6 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.Main.Main;
+import CalorieCounter.main.Main;
 import CalorieCounter.Modell.FoodDatabaseOperations;
 import CalorieCounter.Modell.UserDAOfactory;
 import CalorieCounter.Modell.ProfileNamesDatabaseOperations;
@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +24,10 @@ import java.util.ResourceBundle;
  * Class for controlling the profiles scene's actions.
  */
 public class profileLoginController implements Initializable {
-
+    /**
+     * The logger for this class.
+     */
+    private static Logger logger = LoggerFactory.getLogger(mainfxmlController.class);
     @FXML
     private TextField profileName;
     @FXML
@@ -64,6 +69,7 @@ public class profileLoginController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            logger.info("next butten is pressed");
             Main.CurrentStage.setScene(new Scene(root));
         }
         else {

@@ -23,6 +23,13 @@
     <description>This Calorie counter application is my project for one of my subjects at my University.
         It has a user interface and it can count calorie numbers from weight and sex.</description>
 
+    <scm>
+        <connection>scm:git:git@github.com:gulyasman/Calorie_Counter.git</connection>
+        <url>scm:git:git@github.com:gulyasman/Calorie_Counter.git</url>
+        <developerConnection>scm:git:git@github.com:gulyasman/Calorie_Counter.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -37,7 +44,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
         <dependency.locations.enabled>false</dependency.locations.enabled>
-        <exec.mainClass>Main.Main</exec.mainClass>
+        <exec.mainClass>CalorieCounter.main.Main</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
