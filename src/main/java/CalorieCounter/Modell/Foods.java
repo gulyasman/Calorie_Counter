@@ -8,10 +8,14 @@ import javax.persistence.*;
 @Entity
 public class Foods {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Foodid", updatable = false, nullable = false)
+    private Long foodid;
+
     /**
      * Name of food.
      */
-    @Id
     @Column(name = "Foodname")
     private String foodname;
     /**

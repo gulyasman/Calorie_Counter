@@ -23,25 +23,32 @@ public class ProfileNamesDatabaseOperations {
      * @param add Profile name string.
      */
     public static void addProfileName(String add){
-        ProfileNames adder = new ProfileNames(add);
+        Profiles adder = new Profiles(add);
 
         em.getTransaction().begin();
         em.persist(adder);
         em.getTransaction().commit();
-
-
     }
 
     /**
      * Query all profile name.
      * @return List of all profile name.
      */
-    public static List<ProfileNames> allProfileName(){
+    public static List<Profiles> allProfileName(){
 
-        TypedQuery<ProfileNames> query = em.createQuery("SELECT pf FROM ProfileNames pf",ProfileNames.class);
-        List<ProfileNames> result = query.getResultList();
+        TypedQuery<Profiles> query = em.createQuery("SELECT pf FROM Profiles pf",Profiles.class);
+        List<Profiles> result = query.getResultList();
 
         return result;
+    }
+
+    /**
+     *
+     *
+     *
+     * */
+    public static Profiles oneProfileByString(String profileName){
+        return allProfileName().stream().filter(profile -> profileName.equals(profile.getProfileName())).findFirst().orElseThrow();
     }
 
     /**
@@ -50,10 +57,10 @@ public class ProfileNamesDatabaseOperations {
      */
     public static List<String> allProfileNametoString(){
         List<String> stringNames = new LinkedList<>();
-        List<ProfileNames> result = allProfileName();
+        List<Profiles> result = allProfileName();
 
         for(int i=0; i<result.size();i++)
-            stringNames.add(i,result.get(i).getProfilename());
+            stringNames.add(i,result.get(i).getProfileName());
 
         return stringNames;
     }
@@ -65,7 +72,7 @@ public class ProfileNamesDatabaseOperations {
      */
     public static boolean isInProfileNames(String profilname){
 
-        ProfileNames resultname = new ProfileNames(profilname);
+        Profiles resultname = new Profiles(profilname);
 
         if(allProfileNametoString().contains(profilname))
             return true;

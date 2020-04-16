@@ -29,21 +29,8 @@ public class UserDAOfactory {
      */
     static {
         instance = new UserDAOfactory(em);
-        f = Persistence.createEntityManagerFactory("jpa-persistence-unit-1", getProperties());
+        f = Persistence.createEntityManagerFactory("jpa-persistence-unit-1");
         em = f.createEntityManager();
-    }
-    /**
-     * Returns the properties of the database connection.
-     * @return the properties of the database connection
-     */
-    private static Map<String, String> getProperties() {
-        StrongTextEncryptor textEncryptor = new StrongTextEncryptor();
-        textEncryptor.setPassword("progtech-2018");
-        Reader reader = new Reader();
-        String myEncryptedText = textEncryptor.decrypt(reader.getPassword());
-        Map<String, String> properties = new HashMap<>();
-        properties.put("javax.persistence.jdbc.password", myEncryptedText);
-        return properties;
     }
     /**
      * Constructs a {@code UserDAOFactory} object.

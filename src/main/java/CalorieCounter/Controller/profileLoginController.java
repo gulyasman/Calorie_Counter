@@ -1,7 +1,8 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.main.Main;
+import CalorieCounter.Main.Main;
 import CalorieCounter.Modell.FoodDatabaseOperations;
+import CalorieCounter.Modell.Profiles;
 import CalorieCounter.Modell.UserDAOfactory;
 import CalorieCounter.Modell.ProfileNamesDatabaseOperations;
 import javafx.event.ActionEvent;
@@ -31,7 +32,7 @@ public class profileLoginController implements Initializable {
     @FXML
     private TextField profileName;
     @FXML
-    private ChoiceBox choiceBox;
+    private ChoiceBox<String> choiceBox;
     @FXML
     private Label Warninglabel;
 
@@ -41,7 +42,7 @@ public class profileLoginController implements Initializable {
     /**
      * The user profil name from {@code ProfilNames} database.
      */
-    public static String currentProfil;
+    public static Profiles currentProfil;
 
 
     /**
@@ -61,7 +62,7 @@ public class profileLoginController implements Initializable {
             if (!ProfileNamesDatabaseOperations.isInProfileNames(profileName.getText())) {
                 ProfileNamesDatabaseOperations.addProfileName(profileName.getText());
             }
-            currentProfil = profileName.getText();
+            currentProfil = ProfileNamesDatabaseOperations.oneProfileByString(profileName.getText());
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/main.fxml"));
             Parent root = null;
             try {
@@ -71,6 +72,7 @@ public class profileLoginController implements Initializable {
             }
             logger.info("next butten is pressed");
             Main.CurrentStage.setScene(new Scene(root));
+            Main.CurrentStage.setResizable(false);
         }
         else {
             Warninglabel.setText("Warning! : Empty profile");

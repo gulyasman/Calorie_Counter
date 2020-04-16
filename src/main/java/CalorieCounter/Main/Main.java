@@ -1,4 +1,4 @@
-package CalorieCounter.main;
+package CalorieCounter.Main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

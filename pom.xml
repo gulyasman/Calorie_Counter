@@ -7,11 +7,7 @@
     <packaging>jar</packaging>
     <version>1.0</version>
 
-    <organization>
-        <name>Harsanyi Tibor</name>
-        <url>https://github.com/gulyasman/Calorie_Counter</url>
-    </organization>
-    <inceptionYear>2019</inceptionYear>
+
 
     <developers>
         <developer>
@@ -19,24 +15,6 @@
             <email>teborrr@gmail.com</email>
         </developer>
     </developers>
-
-    <description>This Calorie counter application is my project for one of my subjects at my University.
-        It has a user interface and it can count calorie numbers from weight and sex.</description>
-
-    <scm>
-        <connection>scm:git:git@github.com:gulyasman/Calorie_Counter.git</connection>
-        <url>scm:git:git@github.com:gulyasman/Calorie_Counter.git</url>
-        <developerConnection>scm:git:git@github.com:gulyasman/Calorie_Counter.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -280,26 +258,11 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M3</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

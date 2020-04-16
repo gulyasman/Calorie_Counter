@@ -1,4 +1,4 @@
-package CalorieCounter.main;
+package CalorieCounter.Main;
 
 import CalorieCounter.Modell.UserDAOfactory;
 import javafx.application.Application;
@@ -21,6 +21,7 @@ public class MyApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/profileLogin.fxml"));
         Scene scene = new Scene(root);
         Main.CurrentStage.setScene(scene);
+        Main.CurrentStage.setResizable(false);
         Main.CurrentStage.show();
         Main.CurrentStage.setOnCloseRequest(e->closeApp());
     }

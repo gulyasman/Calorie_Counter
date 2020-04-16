@@ -1,6 +1,6 @@
 package CalorieCounter.Controller;
 
-import CalorieCounter.main.Main;
+import CalorieCounter.Main.Main;
 import CalorieCounter.Modell.CalorieCounting;
 import CalorieCounter.Modell.FoodDatabaseOperations;
 import CalorieCounter.Modell.Foods;
@@ -212,7 +212,7 @@ public class mainfxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ProfilNameLabel.setText(profileLoginController.currentProfil);
+        ProfilNameLabel.setText(profileLoginController.currentProfil.getProfileName());
 
         ToggleGroup group = new ToggleGroup();
         manButton.setToggleGroup(group);
